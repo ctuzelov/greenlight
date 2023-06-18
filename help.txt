@@ -41,4 +41,8 @@ JSON: {
             --->  pointers and values, but pointer methods can only be invoked on pointers."
         }
     }
+    Decoding: {
+        for the purpose of decoding JSON from a HTTP request body, using json.Decoder is generally the best choice. It’s more efficient than
+        json.Unmarshal() , requires less code, and offers some helpful settings that you can use to tweak its behavior
+    }
 }
