@@ -1,22 +1,30 @@
-version: "3.7"
+version: '3'
 services:
-  database:
-    image: postgres
+  db:
+    image: postgres:latest
     restart: always
-    env_file:
-      - .env
     ports:
-      - "5432:5432"
-  server:
+      - "5433:5433"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DATABASE: account
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    env_file: .env
-    depends_on:
-      - database
-    networks:
-      - default
     ports:
-    - "4000:4000"
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5433
+      DB_USER: admin
+      DB_PASSWORD: admin
+      DB_NAME: account
+      PORT: ":8080"
 volumes:
-  data:
+  db-data:
