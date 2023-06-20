@@ -44,5 +44,13 @@ JSON: {
     Decoding: {
         for the purpose of decoding JSON from a HTTP request body, using json.Decoder is generally the best choice. It’s more efficient than
         json.Unmarshal() , requires less code, and offers some helpful settings that you can use to tweak its behavior
+        Errors: {
+            1. json.SyntaxError || io.ErrUnexpectedEOF - There is a syntax problem with the JSON being decoded
+            2. json.UnmarshalTypeError - A JSON value is not appropriate for the destination GO type
+            3. json.InvalidUnmarshalError - The decode destination is not valid (usually because it is not a
+                pointer). This is actually a problem with our application code, not the JSON itself
+            4. io.EOF - The JSON being decoded is empty
+        }
     }
+
 }
